@@ -1,0 +1,33 @@
+using System;
+
+class Program 
+{
+    static void Main() 
+    {
+        console.write("Digite um número: ");
+        int n = int.Parse(console.readline());
+
+        if(IsFibonacci(n))
+        {
+            console.writeline("O número é um número de Fibonacci.");
+        }
+        else
+        {
+            console.writeline("O número não é um número de Fibonacci.");
+        }
+    }
+
+    static bool IsFibonacci(int n)
+    {
+        int a = 0, b = 1, temp;
+
+        while (b < n)
+        {
+            temp = a + b;
+            a = b;
+            b = temp;
+        }
+
+        return (b == n || n == 0);
+    }
+}

@@ -1,0 +1,36 @@
+using System;
+using System.IO;
+using System.Linq;
+using Newtonsoft.Json;
+
+
+class Program
+{
+    public class FaturamentoDiario
+    {
+        public int Dia { get; set; }
+        public double Valor { get; set; }
+    }
+
+    static void Main()
+    {
+        //mudar caminho do arquivo de acordo com o local onde o arquivo foi salvo
+        string json = File.ReadAllText("C:\Users\kikos\Downloads\dados.json");
+        var faturamento = JsonConvert.DeserializeObject<FaturamentoDiario[]>(json);
+
+        var diasComFaturamento = faturamento.Where(f => f.Valor > 0).ToArray();
+
+        double menor = diasComFaturamento.Min(f => f.Valor);
+        double maior = diasComFaturamento.Max(f => f.Valor);
+        double media = diasComFaturamento.Average(f => f.Valor);
+
+        int diasAcimaMedia = diasComFaturamento.Count(f => f.Valor > media);
+
+        Console.WriteLine($"Menor faturamento: {menor}");
+        Console.WriteLine($"Maior faturamento: {maior}");   
+        Console.WriteLine($"Média dos faturamentos: {media}");
+        Console.WriteLine($"Dias com faturamento acima da média: {diasAcimaMedia}");
+
+
+    }
+}
